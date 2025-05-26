@@ -1,13 +1,14 @@
 package com.example.catalogopeliculasapp
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun AppNavigation() {
-    val navController = rememberNavController()
+    val navController: NavHostController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "login") {
         composable("login") {
@@ -17,10 +18,16 @@ fun AppNavigation() {
             )
         }
         composable("register") {
-            RegisterScreen(onNavigateBack = { navController.popBackStack() })
+            RegisterScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
         composable("home") {
             HomeScreen()
+        }
+
+        composable("lists") {
+            ListsScreen()
         }
     }
 }

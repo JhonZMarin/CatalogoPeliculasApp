@@ -8,8 +8,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoginScreen(
-    onLoginSuccess: () -> Unit,
-    onRegisterClick: () -> Unit
+    onNavigateToHome: () -> Unit,
+    onNavigateToRegister: () -> Unit
 ) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -20,8 +20,8 @@ fun LoginScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Iniciar Sesión", style = MaterialTheme.typography.headlineMedium)
-        Spacer(modifier = Modifier.height(20.dp))
+        Text("Iniciar Sesión", style = MaterialTheme.typography.headlineSmall)
+        Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = username,
@@ -30,6 +30,8 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -37,17 +39,14 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {
-            // Aquí puedes validar o simular login
-            onLoginSuccess()
-        }, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = onNavigateToHome, modifier = Modifier.fillMaxWidth()) {
             Text("Iniciar Sesión")
         }
 
-        TextButton(onClick = onRegisterClick) {
-            Text("¿No tienes cuenta? Registrarse")
+        TextButton(onClick = onNavigateToRegister, modifier = Modifier.fillMaxWidth()) {
+            Text("¿No tienes cuenta? Regístrate")
         }
     }
 }
