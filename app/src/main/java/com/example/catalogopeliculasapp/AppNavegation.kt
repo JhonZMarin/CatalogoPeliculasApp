@@ -23,11 +23,24 @@ fun AppNavigation() {
             )
         }
         composable("home") {
-            HomeScreen()
+            HomeScreen(navController)
         }
 
         composable("lists") {
-            ListsScreen()
+            ListsScreen(navController)
         }
+
+        composable(
+            "details/{title}/{overview}/{posterPath}"
+        ) { backStackEntry ->
+            DetailsScreen(
+                navController,
+                title = backStackEntry.arguments?.getString("title") ?: "",
+                overview = backStackEntry.arguments?.getString("overview") ?: "",
+                posterPath = backStackEntry.arguments?.getString("posterPath") ?: ""
+            )
+        }
+
     }
-}
+    }
+

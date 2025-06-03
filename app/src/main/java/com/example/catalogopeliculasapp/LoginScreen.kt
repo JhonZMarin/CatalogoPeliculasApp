@@ -13,6 +13,7 @@ fun LoginScreen(
 ) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -27,7 +28,8 @@ fun LoginScreen(
             value = username,
             onValueChange = { username = it },
             label = { Text("Usuario") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = showError && username.isBlank()
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -36,12 +38,27 @@ fun LoginScreen(
             value = password,
             onValueChange = { password = it },
             label = { Text("Contraseña") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = showError && password.isBlank()
         )
+
+        if (showError && (username.isBlank() || password.isBlank())) {
+            Text("Los campos no pueden estar vacíos", color = MaterialTheme.colorScheme.error)
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = onNavigateToHome, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = {
+                if (username.isBlank() || password.isBlank()) {
+                    showError = true
+                } else {
+                    showError = false
+                    onNavigateToHome()
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text("Iniciar Sesión")
         }
 
